@@ -24,6 +24,7 @@ describe "Authentication" do
 			before { sign_in user }
 
 			it { should have_title(user.name) }
+            it { should have_link('Users',      href: users_path) }
 			it { should have_link('Profile', href: user_path(user)) }
 			it { should have_link('Settings', href: edit_user_path(user)) }
 			it { should have_link('Sign out', href: signout_path) }
@@ -60,6 +61,11 @@ describe "Authentication" do
     		describe "in the Users controller" do 
     			before { visit edit_user_path(user) }
     			it { should have_title('Sign in') }
+
+                describe "visiting the user index" do 
+                    before { visit users_path }
+                    it { should have_title('Sign in') }
+                end
     		end
 
     		describe "submitting to the update action" do
