@@ -104,6 +104,15 @@ describe "Authentication" do
     			before { patch user_path(wrong_user) }
     			specify { expect(response).to redirect_to(root_path) }
     		end
+
+            describe "can't watch delete_link in user's micropost" do 
+                before do 
+                    FactoryGirl.create(:micropost, user: user)
+                    visit user_path(wrong_user) 
+                end
+
+                it { should_not have_link('delete') }
+            end
     	end
 
         describe "as non-admin user" do 
